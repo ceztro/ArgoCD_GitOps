@@ -13,11 +13,13 @@ spec:
     - host: {{ .Values.ingress.hosts | first }}
       http:
         paths:
-          - path: /
+          {{- range $p := .Values.ingress.hosts | first | .paths }}
+          - path: {{ $p }}
             pathType: Prefix
             backend:
               service:
                 name: {{ include "travel_guide.fullname" . }}
                 port:
                   number: {{ .Values.service.port }}
+          {{- end }}
 {{- end }}
