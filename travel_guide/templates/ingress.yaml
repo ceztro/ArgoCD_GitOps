@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "travel_guide.fullname" $ }}  # Use $ for root context
+  name: {{ include "travel_guide.fullname" . }}  
   namespace: {{ .Release.Namespace }}
   annotations:
     {{- range $key, $value := .Values.ingress.annotations }}
@@ -19,9 +19,9 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ include "travel_guide.fullname" $ }}  # Use $ for root context
+                name: {{ include "travel_guide.fullname" . }}  
                 port:
-                  number: {{ $p.port | default $.Values.service.port }}  # Use $ to access the root context for .Values.service.port
+                  number: {{ $p.port | default .Values.service.port }}  
           {{- end }}
     {{- end }}
 {{- end }}

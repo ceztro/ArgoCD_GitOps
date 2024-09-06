@@ -2,7 +2,7 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "travel_guide.fullname" $ }}
+  name: {{ include "travel_guide.fullname" . }}
   namespace: {{ .Values.namespace }}
   labels:
     {{- include "travel_guide.labels" . | nindent 4 }}
@@ -10,7 +10,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "travel_guide.fullname" $ }}
+    name: {{ include "travel_guide.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
