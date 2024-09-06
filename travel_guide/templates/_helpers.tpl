@@ -7,7 +7,8 @@ Expand the name of the chart. If `nameOverride` is provided, use it.
 
 {{/*
 Create a default fully qualified app name.
-Truncating at 63 characters to meet Kubernetes DNS name limits.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name, it will be used as a full name.
 */}}
 {{- define "travel_guide.fullname" -}}
 {{- if .Values.fullnameOverride }}
