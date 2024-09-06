@@ -57,7 +57,7 @@ If serviceAccount.create is true, use `fullname` or the provided name; otherwise
 */}}
 {{- define "travel_guide.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-  {{- default (include "travel_guide.fullname" .) .Values.serviceAccount.name }}
+  {{- default (include "travel_guide.fullname" $) .Values.serviceAccount.name }}
 {{- else }}
   {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

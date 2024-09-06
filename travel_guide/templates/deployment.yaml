@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-deployment
+  name: {{ include "travel_guide.fullname" . }}-deployment
   namespace: {{ .Values.namespace }}
   labels:
     app: {{ .Values.appName }}

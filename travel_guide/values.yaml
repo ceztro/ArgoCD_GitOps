@@ -1,5 +1,3 @@
-# Default values for the travel-guide Helm chart.
-
 # Namespace for the resources
 namespace: travel-guide
 
@@ -28,9 +26,7 @@ serviceAccount:
 
 roleName: arn:aws:iam::871548798187:role/pod-role
 
-
-
-fullnameOverride: ""  # This should be either a string (like "my-app") or left blank.
+fullnameOverride: ""  # Can be overridden with a specific name
 
 ingress:
   enabled: true
@@ -44,3 +40,7 @@ ingress:
 
 autoscaling:
   enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
