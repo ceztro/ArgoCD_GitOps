@@ -23,11 +23,10 @@ service:
 # Service account values
 serviceAccount:
   create: true
-  
+
 
 roleName: arn:aws:iam::871548798187:role/pod-role
 
-fullnameOverride: ""  # Can be overridden with a specific name
 
 ingress:
   enabled: true
