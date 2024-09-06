@@ -21,7 +21,7 @@ spec:
               service:
                 name: {{ include "travel_guide.fullname" $ }}  # Use $ for root context
                 port:
-                  number: {{ .Values.service.port }}
+                  number: {{ $p.port | default $.Values.service.port }}  # Use $ to access the root context for .Values.service.port
           {{- end }}
     {{- end }}
 {{- end }}
