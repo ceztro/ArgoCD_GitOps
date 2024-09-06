@@ -30,6 +30,8 @@ roleName: arn:aws:iam::871548798187:role/pod-role
 
 
 
+fullnameOverride: ""  # This should be either a string (like "my-app") or left blank.
+
 ingress:
   enabled: true
   annotations:
