@@ -1,0 +1,29 @@
+# Default values for the travel-guide Helm chart.
+
+# Namespace for the resources
+namespace: travel-guide
+
+# Application-specific values
+appName: travel-guide
+replicas: 3
+
+# Container values
+containerName: travel-guide-container
+containerPort: 5000
+
+# Image-related values
+image:
+  repository: 871548798187.dkr.ecr.us-east-1.amazonaws.com/travel_guide
+  tag: "1.0"
+  pullPolicy: Always
+
+# Service values
+service:
+  type: LoadBalancer
+  port: 80
+
+# Service account values
+serviceAccount:
+  create: true
+
+roleName: arn:aws:iam::871548798187:role/pod-role
