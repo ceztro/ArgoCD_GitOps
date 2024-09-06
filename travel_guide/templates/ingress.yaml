@@ -10,10 +10,10 @@ metadata:
     {{- end }}
 spec:
   rules:
-    - host: {{ .Values.ingress.hosts[0].host }}  # Directly access the first host
+    - host: {{ index .Values.ingress.hosts 0 | index "host" }}
       http:
         paths:
-          - path: {{ .Values.ingress.hosts[0].paths[0] }}  # Directly access the first path
+          - path: {{ index .Values.ingress.hosts 0 | index "paths" 0 }}
             pathType: Prefix
             backend:
               service:
