@@ -5,6 +5,12 @@ metadata:
   name: {{ include "travel_guide.fullname" . }}  
   namespace: {{ .Values.namespace }}
   annotations:
+    # Required for AWS ALB ingress
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/certificate-arn: {{ .Values.ingress.certificateArn }}
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type":"redirect","RedirectConfig":{"Protocol":"HTTPS","Port":"443","StatusCode":"HTTP_301"}}'
     {{- range $key, $value := .Values.ingress.annotations }}
       {{ $key }}: {{ $value | quote }}
     {{- end }}
@@ -20,4 +26,8 @@ spec:
                 name: {{ include "travel_guide.fullname" . }}-service
                 port:
                   number: {{ .Values.service.port }}
+  tls:
+    - hosts:
+        - {{ index (index .Values.ingress.hosts 0) "host" }}
+      secretName: {{ .Values.ingress.tlsSecretName }}
 {{- end }}

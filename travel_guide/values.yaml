@@ -24,20 +24,22 @@ service:
 serviceAccount:
   create: true
 
-
-roleName: arn:aws:iam::871548798187:role/pod-role
+aws:
+  PodRoleName: arn:aws:iam::871548798187:role/pod-role
+  accountId: 871548798187
 
 
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    kubernetes.io/tls-acme: "true"
+    alb.ingress.kubernetes.io/scheme: "internet-facing"
   hosts:
     - host: travel-guide.com
       paths:
         - /
-
+  certificateArn: arn:aws:acm:region:account-id:certificate/certificate-id
+  tlsSecretName: travel-guide-tls
+  
 autoscaling:
   enabled: false
   minReplicas: 1
