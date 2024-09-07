@@ -17,7 +17,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ include "travel_guide.fullname" . }}  
+                name: {{ include "travel_guide.fullname" . }}-service
                 port:
                   number: {{ .Values.service.port }}
 {{- end }}
