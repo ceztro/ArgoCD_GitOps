@@ -28,6 +28,7 @@ aws:
   PodRoleName: arn:aws:iam::871548798187:role/pod-role
   accountId: 871548798187
 
+ALBserviceAccount: {}
 
 ingress:
   enabled: true
