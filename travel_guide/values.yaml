@@ -26,19 +26,20 @@ serviceAccount:
 
 aws:
   PodRoleName: arn:aws:iam::871548798187:role/pod-role
-  accountId: 871548798187
+  AlbControllerRoleName: arn:aws:iam::871548798187:role/k8s_alb_role
 
+ALBserviceAccount: {}
 
 ingress:
   enabled: true
   annotations:
-    alb.ingress.kubernetes.io/scheme: "internet-facing"
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    kubernetes.io/ingress.class: alb
+
   hosts:
     - host: travel-guide.com
       paths:
         - /
-  certificateArn: arn:aws:acm:region:account-id:certificate/certificate-id
-  tlsSecretName: travel-guide-tls
   
 autoscaling:
   enabled: false
