@@ -3,21 +3,23 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ include "travel_guide.fullname" . }}  
-  namespace: {{ .Release.Namespace }}
+  namespace: {{ .Values.namespace }}
   annotations:
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     {{- range $key, $value := .Values.ingress.annotations }}
-      {{ $key }}: {{ $value | quote }}
+    {{ $key }}: {{ $value | quote }}
     {{- end }}
 spec:
   rules:
-    - host: {{ index .Values.ingress.hosts 0 | index "host" }}
+    - host: {{ index (index .Values.ingress.hosts 0) "host" }} 
       http:
         paths:
-          - path: {{ index .Values.ingress.hosts 0 | index "paths" 0 }}
+          - path: {{ index (index .Values.ingress.hosts 0) "paths" 0 }}  
             pathType: Prefix
             backend:
               service:
-                name: {{ include "travel_guide.fullname" . }}  
+                name: {{ include "travel_guide.fullname" . }}-service
                 port:
                   number: {{ .Values.service.port }}
 {{- end }}

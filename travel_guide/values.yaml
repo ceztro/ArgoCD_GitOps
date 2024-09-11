@@ -12,32 +12,35 @@ containerPort: 5000
 # Image-related values
 image:
   repository: 871548798187.dkr.ecr.us-east-1.amazonaws.com/travel_guide
-  tag: "1.0"
+  tag: 06e79e8ea3ec980b103dfa4489a51c4f4de643cf
   pullPolicy: Always
 
 # Service values
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
 
 # Service account values
 serviceAccount:
   create: true
 
+aws:
+  PodRoleName: arn:aws:iam::871548798187:role/pod-role
+  AlbControllerRoleName: arn:aws:iam::871548798187:role/k8s_alb_role
 
-roleName: arn:aws:iam::871548798187:role/pod-role
-
+ALBserviceAccount: {}
 
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    kubernetes.io/tls-acme: "true"
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    kubernetes.io/ingress.class: alb
+
   hosts:
     - host: travel-guide.com
       paths:
         - /
-
+  
 autoscaling:
   enabled: false
   minReplicas: 1
