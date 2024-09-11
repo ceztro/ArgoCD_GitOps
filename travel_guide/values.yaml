@@ -37,8 +37,7 @@ ingress:
     kubernetes.io/ingress.class: alb
 
   hosts:
-    - host: travel-guide.com
-      paths:
+    - paths:
         - /
   
 autoscaling:

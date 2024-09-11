@@ -12,10 +12,9 @@ metadata:
     {{- end }}
 spec:
   rules:
-    - host: {{ index (index .Values.ingress.hosts 0) "host" }} 
-      http:
+    - http:
         paths:
-          - path: {{ index (index .Values.ingress.hosts 0) "paths" 0 }}  
+          - path: {{ index .Values.ingress.hosts 0 "paths" 0 | default "/" }}
             pathType: Prefix
             backend:
               service:
