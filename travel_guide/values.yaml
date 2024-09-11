@@ -17,7 +17,7 @@ image:
 
 # Service values
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80
 
 # Service account values
