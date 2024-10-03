@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: travel-guide-app
+  namespace: argocd
+spec:
+  project: travel-guide-project
+  source:
+    repoURL: 'https://github.com/ceztro/ArgoCD_GitOps.git'
+    targetRevision: dev
+    path: 'travel_guide'
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: travel-guide-namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
