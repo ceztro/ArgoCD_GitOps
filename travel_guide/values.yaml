@@ -29,6 +29,7 @@ aws:
   AlbControllerRoleName: arn:aws:iam::871548798187:role/k8s_alb_role
 
 ALBserviceAccount: {}
+PodServiceAccount: {}
 
 ingress:
   enabled: true
