@@ -60,9 +60,9 @@ alertmanager:
 
 prometheusOperator:
   enabled: true
+  createCustomResource: true 
   tls:
     enabled: false
-  createCustomResource: true 
   admissionWebhooks:
     enabled: false
     patch:
