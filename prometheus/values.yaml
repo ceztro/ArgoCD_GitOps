@@ -61,6 +61,7 @@ alertmanager:
 prometheusOperator:
   createCustomResource: true 
   admissionWebhooks:
+    create: false
     patch:
       enabled: false  # Disable admission webhooks if not required
 
