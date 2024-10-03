@@ -15,7 +15,7 @@ spec:
       labels:
         app: {{ .Values.appName }}
     spec:
-      serviceAccountName: {{ include "travel_guide.serviceAccountName" . }}
+      serviceAccountName: {{ .Values.PodServiceAccount.name | default "pod-service-account" }}
       containers:
       - name: {{ .Values.containerName }}
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
