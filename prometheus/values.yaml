@@ -1,0 +1,78 @@
+namespaceOverride: monitoring
+
+prometheus:
+  prometheusSpec:
+    serviceAccountName: prometheus-sa
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi 
+          storageClassName: gp2 
+    service:
+      type: LoadBalancer
+      port: 9090 
+  serviceAccount:
+    create: true
+    name: prometheus-sa
+    annotations:
+      eks.amazonaws.com/role-arn: arn:aws:iam::871548798187:role/k8s_prometheus_role  # OIDC IAM role for service account
+
+grafana:
+  enabled: true
+  # Disable setting a static admin password in the values file
+  adminPassword: ""  # Leave this empty because we will pull it from AWS Secrets Manager
+  
+  extraEnv:
+    - name: GF_SECURITY_ADMIN_PASSWORD_FILE
+      value: /etc/grafana/admin-password
+
+  initContainers:
+    - name: fetch-grafana-password
+      image: amazon/aws-cli:latest
+      command: ["sh", "-c"]
+      args:
+        - >
+          echo "Fetching Grafana password from AWS Secrets Manager...";
+          aws secretsmanager get-secret-value --secret-id grafana --region us-east-1 --query 'SecretString' --output text | jq -r .grafana_password > /etc/grafana/admin-password;
+      env:
+        - name: AWS_REGION
+          value: "us-east-1"
+      volumeMounts:
+        - name: admin-password-volume
+          mountPath: /etc/grafana/
+          
+  volumeMounts:
+    - name: admin-password-volume
+      mountPath: /etc/grafana/  # Mount the same volume in the Grafana container to read the password
+
+  volumes:
+    - name: admin-password-volume
+      emptyDir: {} 
+        
+
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    replicas: 1 
+
+prometheusOperator:
+  createCustomResource: true 
+  admissionWebhooks:
+    patch:
+      enabled: false  # Disable admission webhooks if not required
+
+rbac:
+  create: true  # Ensures RBAC resources like ClusterRole and ClusterRoleBinding are created
+  pspEnabled: false  # Disable Pod Security Policies if not needed
+
+nodeExporter:
+  enabled: true  # Enable the node exporter for collecting node-level metrics
+
+kubeStateMetrics:
+  enabled: true  # Enable kube-state-metrics for collecting Kubernetes cluster state metrics
+
+# Additional scraping configurations
+additionalPrometheusRulesMap: {}
