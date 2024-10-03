@@ -6,6 +6,8 @@ metadata:
     app.kubernetes.io/name: aws-ebs-csi-driver
   name: ebs-csi-controller-sa
   namespace: kube-system
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::871548798187:role/ebs_csi_role
 ---
 apiVersion: v1
 automountServiceAccountToken: true
