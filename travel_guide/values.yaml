@@ -12,7 +12,7 @@ containerPort: 5000
 # Image-related values
 image:
   repository: 871548798187.dkr.ecr.us-east-1.amazonaws.com/travel_guide
-  tag: 06e79e8ea3ec980b103dfa4489a51c4f4de643cf
+  tag: c1f0200c7622de6d3742d5d2ff09560ef09d0cdb
   pullPolicy: Always
 
 # Service values
