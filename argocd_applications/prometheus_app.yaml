@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: 'https://prometheus-community.github.io/helm-charts'
     chart: kube-prometheus-stack  
-    targetRevision: 62.7.0
+    targetRevision: 65.0.0
     helm:
       valueFiles:
         - 'https://raw.githubusercontent.com/ceztro/ArgoCD_GitOps/dev/prometheus/values.yaml'
