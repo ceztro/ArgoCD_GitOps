@@ -23,26 +23,3 @@ spec:
       prune: true
       selfHeal: true
   syncWave: "2"
-  # hooks:
-  #   - name: apply-crds
-  #     annotations:
-  #       argocd.argoproj.io/hook: PreSync  # Apply CRDs before syncing other resources
-  #     manifest:
-  #       apiVersion: batch/v1
-  #       kind: Job
-  #       metadata:
-  #         name: apply-crds-server-side
-  #       spec:
-  #         template:
-  #           spec:
-  #             containers:
-  #             - name: helm
-  #               image: alpine/helm:latest  # Helm-enabled image
-  #               command:
-  #               - sh
-  #               - -c
-  #               - |
-  #                 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-  #                 helm repo update
-  #                 helm show crds prometheus-community/kube-prometheus-stack --version "65.0.0" | kubectl apply --server-side=true --overwrite=false --force-conflicts -f -
-  #             restartPolicy: OnFailure
