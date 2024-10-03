@@ -59,6 +59,7 @@ alertmanager:
     replicas: 1 
 
 prometheusOperator:
+  enabled: true
   createCustomResource: true 
   admissionWebhooks:
     enabled: false
@@ -68,7 +69,7 @@ prometheusOperator:
     enabled: false  # Disable TLS proxy if not required
   tls:
     enabled: false  # Disable TLS if not required
-    
+
 rbac:
   create: true  # Ensures RBAC resources like ClusterRole and ClusterRoleBinding are created
   pspEnabled: false  # Disable Pod Security Policies if not needed
