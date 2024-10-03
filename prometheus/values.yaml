@@ -61,9 +61,9 @@ alertmanager:
 prometheusOperator:
   createCustomResource: true 
   admissionWebhooks:
-    create: false
+    enabled: true
     patch:
-      enabled: false  # Disable admission webhooks if not required
+      enabled: true  # Disable admission webhooks if not required
 
 rbac:
   create: true  # Ensures RBAC resources like ClusterRole and ClusterRoleBinding are created
